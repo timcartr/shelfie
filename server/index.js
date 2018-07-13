@@ -14,7 +14,7 @@ const port = process.env.SERVER_PORT
 // ENDPOINTS
 app.get('/api/inventory', ctrl.read)
 app.post('/api/product', ctrl.create)
-app.delete('api/product/:id', ctrl.delete)
+app.delete('/api/product/:id', ctrl.delete)
 
 massive(connectionString).then( connection => {
     app.set('db', connection)

@@ -38,13 +38,24 @@ export default class Form extends Component {
             name: '',
             price: 0,
             imgurl: '',
+            selectedProduct: null
         })
     }
 
     addToInventory(body){
+        this.setState({
+            selectedProduct: null
+        })
         Axios.post('./api/product', this.state)
         .then( this.props.getMethod())
         this.clearInput()
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.data != this.props.data){
+            
+        }
+
     }
 
     render() {

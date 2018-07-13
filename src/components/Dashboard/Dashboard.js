@@ -11,6 +11,7 @@ export default class Dashboard extends Component {
         this.state={
 
         }
+        this.deleteProduct = this.deleteProduct.bind(this)
     }
 
     deleteProduct(id) {
@@ -21,8 +22,12 @@ export default class Dashboard extends Component {
     render() {
         let mappedInventory = this.props.inventory.map( (e,i) => {
             return(
-                <Product key={i} inventory={this.props.inventory[i]}
-                                deleteProduct = {this.deleteProduct}/>
+                <Product 
+                    key={i}
+                    inventory={this.props.inventory[i]}
+                    deleteProduct = {this.deleteProduct}
+                    selectProduct = { this.props.selectProduct }
+                    />
             )
         })
         return(

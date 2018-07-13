@@ -9,10 +9,10 @@ export default function Product(props) {
             <img src={ props.inventory.imgurl } alt="" height="200px"/>
             <p>{ props.inventory.name }</p>
             <p>${ props.inventory.price }</p>
-            <button onClick={ () => props.deleteProduct }>
+            <button onClick={ () => props.deleteProduct(props.inventory.product_id) }>
                 Delete
             </button>
-            <button>Edit</button>
+            <button onClick={ () => props.selectProduct(props.inventory.product_id) }>Edit</button>
             
             
             

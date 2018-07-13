@@ -28,12 +28,13 @@ module.exports={
         const { params } = req
 
         console.log(req.params)
-        // db.delete_product(params.id)
-        // .then( () => res.sendStatus(200))
-        // .catch( err => {
-        //     rest.status(500).send({errorMessage:"My bad"})
-        //     console.log(err)
-        // })
+        
+        db.delete_product(params.id)
+        .then( () => res.sendStatus(200))
+        .catch( err => {
+            rest.status(500).send({errorMessage:"My bad"})
+            console.log(err)
+        })
     }
 
 }

@@ -35,6 +35,17 @@ module.exports={
             rest.status(500).send({errorMessage:"My bad"})
             console.log(err)
         })
+    },
+     
+    update: (req, res) => {
+        const db = req.app.get('db')
+        const { name, price, imgurl } = req.body
+        
+        db.update_product([req.params.id,name,price,imgurl]).then( () => res.sendStatus(200))
+        .catch( err => {
+            rest.status(500).send({errorMessage:"My bad"})
+            console.log(err)
+        })
     }
 
 }

@@ -12,7 +12,7 @@ export default function Product(props) {
             <button onClick={ () => props.deleteProduct(props.inventory.product_id) }>
                 Delete
             </button>
-            <button onClick={ () => props.selectProduct(props.inventory.product_id) }>Edit</button>
+            <button onClick={ () => props.selectProductFn(props.inventory.product_id) }>Edit</button>
             
             
             

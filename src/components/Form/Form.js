@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import Axios from '../../../node_modules/axios';
-// import axios from 'axios'
+import axios from 'axios'
 
 // import './Form.css'
 
@@ -10,8 +10,11 @@ export default class Form extends Component {
 
         this.state={
             name:'',
-            price: 0,
+            price: '',
             imgurl: '',
+            selectedProduct: '',
+            buttonText: 'Add to Inventory',
+            shouldUpdate: false
         }
     }
 
@@ -36,9 +39,9 @@ export default class Form extends Component {
     clearInput() {
         this.setState({
             name: '',
-            price: 0,
+            price: '',
             imgurl: '',
-            selectedProduct: null
+            selectedProduct: ''
         })
     }
 
@@ -51,21 +54,31 @@ export default class Form extends Component {
         this.clearInput()
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if(prevProps.data != this.props.data){
-            
+    componentDidUpdate(prevProps) {
+        if(this.props.selectedProduct !== prevProps.selectedProduct){
+            this.setState({
+                selectedProduct: this.props.selectedProduct,
+                buttonText: "Save Changes",
+                shouldUpdate: true
+            })
         }
+    }
 
+    updateInventory(){
+        let { name, price, imgurl } = this.state
+        axios.put(`/api/product/${this.props.selectedProduct}`, {name,price,imgurl})
+        .then( this.props.getMethod())
+        this.clearInput()
     }
 
     render() {
         return(
             <div className='Form'>
-            <input type="text" onChange={ e => this.handleImgurlChange( e.target.value )}placeholder="Img URL"/>
-            <input type="text" onChange={ e => this.handleNameChange( e.target.value )}placeholder="Product Name"/>
-            <input type="text" onChange={ e => this.handlePriceChange( e.target.value )}placeholder="Product Price"/>
-            <button onClick={ () => this.clearInput() }>Cancel</button>
-            <button onClick={ () => this.addToInventory() }>Add to Inventory</button>
+                <input type="text" onChange={ e => this.handleImgurlChange( e.target.value )}placeholder="Img URL" value={this.state.imgurl}/>
+                <input type="text" onChange={ e => this.handleNameChange( e.target.value )}placeholder="Product Name" value={this.state.name}/>
+                <input type="text" onChange={ e => this.handlePriceChange( e.target.value )}placeholder="Product Price" value={this.state.price}/>
+                <button onClick={ () => this.clearInput() }>Cancel</button>
+                <button onClick={ () => this.state.shouldUpdate ? this.updateInventory() : this.addToInventory() }>{this.state.buttonText}</button>
             </div>
         )
     }

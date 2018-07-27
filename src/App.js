@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Form from './components/Form/Form';
 import Header from './components/Header/Header';
 import axios from 'axios'
+import { HashRouter, Route, Switch, Link } from 'react-router-dom'
 
 class App extends Component {
   constructor() {
@@ -11,7 +12,7 @@ class App extends Component {
 
     this.state={
       inventory:[],
-      selectedProduct:null
+      selectedProduct:''
     }
     this.componentDidMount = this.componentDidMount.bind(this)
     this.selectProduct = this.selectProduct.bind(this)
@@ -33,15 +34,24 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Dashboard  inventory={ this.state.inventory }
-                    getMethod = { this.componentDidMount }
-                    selectProduct = { this.selectProduct }/>
-        <Form getMethod = { this.componentDidMount }
-              selectProduct = { this.state.selectProduct } />
-        <Header />
-        { this.state.selectedProduct }
-      </div>
+      <HashRouter>
+        <div className="App">
+          {/* <Switch>
+            <Route exact path='/' component={Dashboard} />
+            <Route exact path='/wizard' component={Dashboard} />
+
+          </Switch> */}
+
+
+          <Dashboard  inventory={ this.state.inventory }
+                      getMethod = { this.componentDidMount }
+                      selectProductFn = { this.selectProduct }/>
+          <Form getMethod = { this.componentDidMount }
+                selectedProduct = {this.state.selectedProduct }/>
+          <Header />
+          { this.state.selectedProduct }
+        </div>
+      </HashRouter>
     );
   }
 }

@@ -12,10 +12,16 @@ export default class Dashboard extends Component {
 
         }
         this.deleteProduct = this.deleteProduct.bind(this)
+        this.updateProduct = this.updateProduct.bind(this)
     }
 
     deleteProduct(id) {
         axios.delete(`/api/product/${id}`)
+        .then( this.props.getMethod())
+    }
+
+    updateProduct(id) {
+        axios.put(`/api/product/${id}`)
         .then( this.props.getMethod())
     }
 
@@ -26,7 +32,8 @@ export default class Dashboard extends Component {
                     key={i}
                     inventory={this.props.inventory[i]}
                     deleteProduct = {this.deleteProduct}
-                    selectProduct = { this.props.selectProduct }
+                    selectProductFn = { this.props.selectProductFn }
+                    updateProduct = { this.updateProduct }
                     />
             )
         })
